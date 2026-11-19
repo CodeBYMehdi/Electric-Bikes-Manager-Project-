@@ -20,8 +20,31 @@ public class Station {
     
     public String getStationName() {return stationName;}
     public int getCapacity() {return capacity;}
-    public Bike[] getDockedBikes() {return dockedBikes;}
     
     public boolean existsStation(String otherStation) {return stationName.equals(otherStation);}
     
+    public boolean canBeReturned() {return dockedBikes.length < capacity;}
+    
+    public void addBike() {
+        //TODO
+    }
+    
 }
+
+public class BikeIterator {
+    private Bike[] dockedBikes;
+    private int capacity;
+    private int nextIndex;
+        
+    public BikeIterator(Bike[] dockedBikes, int capacity) {
+        this.dockedBikes = dockedBikes;
+        this.capacity = capacity;
+        nextIndex = 0;
+    } 
+    
+    public boolean hasNext() {return nextIndex < capacity;}
+    
+    public Bike next() {return dockedBikes[nextIndex++];}
+}
+
+    
