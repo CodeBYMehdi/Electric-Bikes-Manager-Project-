@@ -31,15 +31,33 @@ public class Main{
                     command);
         } while (!command.equals(EXIT) );
     }
-    public void processInstall(Scanner in){}
-    public void processExit(Scanner in){}
-    public void processAdd(Scanner in){}
-    public void processRegister(Scanner in){}
-    public void processPickUp(Scanner in){}
-    public void processReturn(Scanner in){}
-    public void processStation(Scanner in){}
-    public void processPay(Scanner in){}
-    public void processTop(){}
+    public void processInstall(Scanner in){
+        //TODO
+    }
+    public void processExit(Scanner in){
+        //TODO
+    }
+    public void processAdd(Scanner in){
+        //TODO
+    }
+    public void processRegister(Scanner in){
+        //TODO
+    }
+    public void processPickUp(Scanner in){
+        //TODO
+    }
+    public void processReturn(Scanner in){
+        //TODO
+    }
+    public void processStation(Scanner in){
+        //TODO
+    }
+    public void processPay(Scanner in){
+        //TODO
+    }
+    public void processTop(){
+        //TODO
+    }
     public void processUnknownCommand(){System.out.println(INVALID_COMAND_MSG);}
 
 
