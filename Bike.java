@@ -24,7 +24,10 @@ public class Bike {
     public boolean isFullyCharged() {return battery == 100;}
     
     public void batteryUsage(int time) {
-        //TODO
+       battery -= (time/5);
+       if (battery < 0) {
+           battery = 0; 
+       }
     }
     
     public int rechargingBattery(int time) {

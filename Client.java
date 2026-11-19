@@ -15,10 +15,12 @@ public class Client {
         this.balance = balance;
     }
     
-    public boolean canPickBike() {return balance >= 100;}
-    
     public String getName() {return name;}
     public int getBalance() {return balance;}
+    
+    public boolean canPickBike() {return balance >= 100;}
+    
+
     
     public void pay(int amount) {
         if (amount > 0) {
