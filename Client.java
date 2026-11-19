@@ -2,7 +2,7 @@
 /**
  * This class defines the behavior of the Client/User 
  *
- * @author Mehdi
+ * @author Mehdi, Zakhar
  * @version 0.0.1
  */
 public class Client {
