@@ -1,0 +1,37 @@
+
+/**
+ * This class establishes the limits, 
+ * the functioning and the rules
+ * for renting electric bikes.
+ *
+ * @author Mehdi
+ * @version 0.0.1
+ */
+public class Bike {
+    private String bikeId;
+    private int battery;
+    
+    public Bike(String bikeId, int battery) {
+        this.bikeId = bikeId;
+        battery = 100;
+    }
+    
+    public String getId() {return bikeId;}
+    public int getBattery() {return battery;}
+    
+    public boolean canBePicked() {return battery < 20;}
+    
+    public boolean isFullyCharged() {return battery == 100;}
+    
+    public void batteryUsage(int time) {
+        //TODO
+    }
+    
+    public int rechargingBattery(int time) {
+        battery += time;
+        if (battery > 100) {
+            battery = 100;
+        }
+        return battery;
+    }
+}
