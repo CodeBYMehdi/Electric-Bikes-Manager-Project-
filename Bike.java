@@ -4,7 +4,7 @@
  * the functioning and the rules
  * for renting electric bikes.
  *
- * @author Mehdi
+ * @author Mehdi, Zakhar Alshuk
  * @version 0.0.1
  */
 public class Bike {

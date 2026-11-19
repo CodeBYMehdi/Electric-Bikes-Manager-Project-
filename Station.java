@@ -3,7 +3,7 @@
  * This class establishes the operating rules 
  * for the Electric Bike Stations
  *
- * @author Mehdi
+ * @author Mehdi, Zakhar Alshuk
  * @version 0.0.1
  */
 public class Station {

@@ -3,12 +3,13 @@ import java.util.Scanner;
 /**
  * 
  *
- * @author Mehdi Ben Jemia
+ * @author Mehdi Ben Jemia,Zakhar Alshuk
  * @version 0.0.1
  */
 
 public class Main{
     public final  String INVALID_COMAND_MSG = "Invalid command .";
+    public final String EXIT_MSG = "Application exited.";
     public final String INSTALL = "install";
     public final String EXIT = "exit";
     public final  String ADD = "add";
@@ -35,7 +36,7 @@ public class Main{
         //TODO
     }
     public void processExit(Scanner in){
-        //TODO
+        System.out.printf(EXIT_MSG);
     }
     public void processAdd(Scanner in){
         //TODO
