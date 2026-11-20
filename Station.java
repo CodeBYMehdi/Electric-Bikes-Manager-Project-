@@ -19,6 +19,7 @@ public class Station {
     }
     
     public String getStationName() {return stationName;}
+    
     public int getCapacity() {return capacity;}
     
     public boolean existsStation(String otherStation) {return stationName.equals(otherStation);}
