@@ -31,8 +31,12 @@ public class Main{
                     command);
         } while (!command.equals(EXIT) );
     }
-    public void processInstall(Scanner in){
-        //TODO
+    public void processInstall(Scanner in) {
+        String stationName = in.next();
+        int capacity = in.nextInt();
+        Bike[] dockedBikes = new Bike[capacity];
+        
+        Station newStation = new Station(stationName, capacity, dockedBikes);
     }
     public void processExit(Scanner in){
         //TODO
