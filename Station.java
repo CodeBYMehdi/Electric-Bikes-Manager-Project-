@@ -32,7 +32,7 @@ public class Station {
     
 }
 
-public class BikeIterator {
+class BikeIterator {
     private Bike[] dockedBikes;
     private int capacity;
     private int nextIndex;
