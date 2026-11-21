@@ -29,14 +29,21 @@ public class Main{
     public final String NO_FREE_DOCKS = "Station %s does not have available docks.%n";
     public final String BIKE_SUCCESSFULLY_ADDED = "Station %s now has bike %s in one of its docking stations.%n";
     
+    public final String USER_ALREADY_REGISTERED = "User %s already registered.%n";
+    public final String USER_SUCCESSFULLY_ADDED = "User %s successfully registered with balance %.2f euros.%n";
+    
     public static final int INITIAL_STATIONS_CAPACITY = 10;
     public static final int INITIAL_BIKES_CAPACITY = 10;
+    public static final int INITIAL_CLIENTS_CAPACITY = 10;
     
     private Station[] stations = new Station[INITIAL_STATIONS_CAPACITY];
     private int stationsCount = 0;
     
     private Bike[] bikes = new Bike[INITIAL_BIKES_CAPACITY];
     private int bikesCount = 0;
+    
+    private Client[] clients = new Client[INITIAL_CLIENTS_CAPACITY];
+    private int clientsCount = 0;
 
     public void growStations() {
         Station[] moreStations = new Station[stations.length + INITIAL_STATIONS_CAPACITY];
@@ -58,6 +65,16 @@ public class Main{
         bikes = moreBikes;
     }
     
+    public void growClients() {
+        Client[] moreClients = new Client[clients.length + INITIAL_CLIENTS_CAPACITY];
+        
+        for (int i = 0; i < clientsCount; i++) {
+            moreClients[i] = clients[i];
+        }
+        
+        clients = moreClients;
+    }
+    
     public Station findStation(String stationName) {
         for (int i = 0; i<stationsCount; i++) {
             if (stations[i].existsStation(stationName)) {
@@ -71,6 +88,15 @@ public class Main{
         for (int i = 0; i < bikesCount; i++) {
             if (bikes[i].existsBike(bikeId)) {
                 return bikes[i];
+            }
+        }
+        return null;
+    }
+    
+    public Client findClient(String userName) {
+        for (int i = 0; i < clientsCount; i++) {
+            if (clients[i].equals(userName)) {
+                return clients[i];
             }
         }
         return null;
@@ -115,11 +141,21 @@ public class Main{
         } else if (findStation(stationName) != null && !(findStation(stationName).existsFreeDock())) {
             System.out.printf(NO_FREE_DOCKS, stationName);    
         } else {
+            addBike();
             System.out.printf(BIKE_SUCCESSFULLY_ADDED, stationName, bikeId);
         }
     }
     public void processRegister(Scanner in){
-        //TODO
+        String userName = in.next();
+        int balance = in.nextInt();
+        
+        if (findClient(userName) != null) {
+            System.out.printf(USER_ALREADY_REGISTERED, userName);
+        } else if (findClient(userName) == null) {
+            if (balance < 0) {
+                Client newClient = Client(userName, balance = 0);
+            }
+        }
     }
     public void processPickUp(Scanner in){
         //TODO
