@@ -24,14 +24,21 @@ public class Main{
     public final String INVALID_CAPACITY = "Station %s cannot be created with %d docking stations.%n";
     public final String STATION_SUCCESSFULLY_CREATED = "Station %s is available with %d docking stations.%n";
     
+    public final String BIKE_EXISTS = "Bike %s already exists.%n";
+    public final String INEXISTENT_STATION = "Station %s not found.%n";
+    public final String NO_FREE_DOCKS = "Station %s does not have available docks.%n";
+    public final String BIKE_SUCCESSFULLY_ADDED = "Station %s now has bike %s in one of its docking stations.%n";
+    
     public static final int INITIAL_STATIONS_CAPACITY = 10;
+    public static final int INITIAL_BIKES_CAPACITY = 10;
     
     private Station[] stations = new Station[INITIAL_STATIONS_CAPACITY];
     private int stationsCount = 0;
     
-    
+    private Bike[] bikes = new Bike[INITIAL_BIKES_CAPACITY];
+    private int bikesCount = 0;
 
-    public void growArray() {
+    public void growStations() {
         Station[] moreStations = new Station[stations.length + INITIAL_STATIONS_CAPACITY];
         
         for (int i = 0; i < stations.length; i++) {
@@ -41,10 +48,29 @@ public class Main{
         stations = moreStations;
     } 
     
+    public void growBikes() {
+        Bike[] moreBikes = new Bike[bikes.length + INITIAL_BIKES_CAPACITY];
+        
+        for (int i = 0; i < bikesCount; i++) {
+            moreBikes[i] = bikes[i];
+        }
+        
+        bikes = moreBikes;
+    }
+    
     public Station findStation(String stationName) {
         for (int i = 0; i<stationsCount; i++) {
             if (stations[i].existsStation(stationName)) {
                 return stations[i];
+            }
+        }
+        return null;
+    }
+    
+    public Bike findBike(String bikeId) {
+        for (int i = 0; i < bikesCount; i++) {
+            if (bikes[i].existsBike(bikeId)) {
+                return bikes[i];
             }
         }
         return null;
@@ -66,7 +92,7 @@ public class Main{
                 stations[stationsCount] = newStation;
                 stationsCount++;
             } else {
-                growArray();
+                growStations();
                 stations[stationsCount] = newStation;
                 stationsCount++;
             }
@@ -82,8 +108,15 @@ public class Main{
         int battery = 100;
         String stationName = in.next();
         
-
-        Bike newBike = new Bike(bikeId, battery);
+        if (findBike(bikeId) != null) {
+            System.out.printf(BIKE_EXISTS, bikeId);
+        } else if (findStation(stationName) == null) {
+            System.out.printf(INEXISTENT_STATION, stationName);
+        } else if (findStation(stationName) != null && !(findStation(stationName).existsFreeDock())) {
+            System.out.printf(NO_FREE_DOCKS, stationName);    
+        } else {
+            System.out.printf(BIKE_SUCCESSFULLY_ADDED, stationName, bikeId);
+        }
     }
     public void processRegister(Scanner in){
         //TODO
