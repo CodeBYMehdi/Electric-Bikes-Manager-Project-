@@ -20,7 +20,11 @@ public class Main{
     public final String PAY  = "pay";
     public final String TOP = "top";
     
-    public final int INITIAL_STATIONS_CAPACITY = 10;
+    public final String STATION_EXISTS = "Station %s already exists.%n";
+    public final String INVALID_CAPACITY = "Station %s cannot be created with %d docking stations.%n";
+    public final String STATION_SUCCESSFULLY_CREATED = "Station %s is available with %d docking stations.%n";
+    
+    public static final int INITIAL_STATIONS_CAPACITY = 10;
     
     private Station[] stations = new Station[INITIAL_STATIONS_CAPACITY];
     private int stationsCount = 0;
@@ -37,23 +41,38 @@ public class Main{
         stations = moreStations;
     } 
     
-
+    public Station findStation(String stationName) {
+        for (int i = 0; i<stationsCount; i++) {
+            if (stations[i].existsStation(stationName)) {
+                return stations[i];
+            }
+        }
+        return null;
+    }
     
     public void processInstall(Scanner in) {
         String stationName = in.next();
         int capacity = in.nextInt();
-        Bike[] dockedBikes = new Bike[capacity];
         
-        Station newStation = new Station(stationName, capacity, dockedBikes);
         
-        if (stationsCount < stations.length) {
-            stations[stationsCount] = newStation;
-            stationsCount++;
+        if (findStation(stationName) != null) {
+            System.out.printf(STATION_EXISTS, stationName);
+        } else if (capacity <= 0) {
+            System.out.printf(INVALID_CAPACITY, stationName, capacity);
         } else {
-            growArray();
-            stations[stationsCount] = newStation;
-            stationsCount++;
+            Bike[] dockedBikes = new Bike[capacity];
+            Station newStation = new Station(stationName, capacity, dockedBikes);
+            if (stationsCount < stations.length) {
+                stations[stationsCount] = newStation;
+                stationsCount++;
+            } else {
+                growArray();
+                stations[stationsCount] = newStation;
+                stationsCount++;
+            }
+            System.out.printf(STATION_SUCCESSFULLY_CREATED, stationName, capacity);
         }
+        
     }
     public void processExit(Scanner in){
         //TODO
@@ -63,6 +82,7 @@ public class Main{
         int battery = 100;
         String stationName = in.next();
         
+
         Bike newBike = new Bike(bikeId, battery);
     }
     public void processRegister(Scanner in){
