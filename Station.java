@@ -11,38 +11,42 @@ public class Station {
     private String stationName;
     private int capacity;
     private Bike[] dockedBikes;
+    private int dockedBikesCount;
     
     public Station(String stationName, int capacity, Bike[] dockedBikes) {
         this.stationName = stationName;
         this.capacity = capacity;
         this.dockedBikes = dockedBikes;
+        dockedBikesCount = 0;
     }
     
     public String getStationName() {return stationName;}
+    
     public int getCapacity() {return capacity;}
     
     public boolean existsStation(String otherStation) {return stationName.equals(otherStation);}
     
-    public boolean canBeReturned() {return dockedBikes.length < capacity;}
+    public boolean existsFreeDock() {return dockedBikesCount < capacity;}
     
-    public void addBike() {
-        //TODO
+    public void addBike(Bike newBike) {
+        dockedBikes[dockedBikesCount] = newBike;
+        dockedBikesCount++;
     }
     
 }
 
-public class BikeIterator {
+class BikeIterator {
     private Bike[] dockedBikes;
-    private int capacity;
+    private int dockedBikesCount;
     private int nextIndex;
         
-    public BikeIterator(Bike[] dockedBikes, int capacity) {
+    public BikeIterator(Bike[] dockedBikes, int dockedBikesCount) {
         this.dockedBikes = dockedBikes;
-        this.capacity = capacity;
+        this.dockedBikesCount = dockedBikesCount;
         nextIndex = 0;
     } 
     
-    public boolean hasNext() {return nextIndex < capacity;}
+    public boolean hasNext() {return nextIndex < dockedBikesCount;}
     
     public Bike next() {return dockedBikes[nextIndex++];}
 }
