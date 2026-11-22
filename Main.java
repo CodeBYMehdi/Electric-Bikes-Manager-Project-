@@ -153,7 +153,11 @@ public class Main{
             System.out.printf(USER_ALREADY_REGISTERED, userName);
         } else if (findClient(userName) == null) {
             if (balance < 0) {
-                Client newClient = Client(userName, balance = 0);
+                Client newClient = new Client(userName, balance = 0);
+                System.out.printf(USER_SUCCESSFULLY_ADDED, userName, balance = 0);
+            } else {
+                Client newClient = new Client(userName, balance);
+                System.out.printf(USER_SUCCESSFULLY_ADDED, userName, balance);
             }
         }
     }
