@@ -95,7 +95,7 @@ public class Main{
     
     public Client findClient(String userName) {
         for (int i = 0; i < clientsCount; i++) {
-            if (clients[i].equals(userName)) {
+            if (clients[i].existsClient(userName)) {
                 return clients[i];
             }
         }
@@ -106,8 +106,9 @@ public class Main{
         String stationName = in.next();
         int capacity = in.nextInt();
         
+        Station correspondingStation = findStation(stationName);
         
-        if (findStation(stationName) != null) {
+        if (correspondingStation != null) {
             System.out.printf(STATION_EXISTS, stationName);
         } else if (capacity <= 0) {
             System.out.printf(INVALID_CAPACITY, stationName, capacity);
@@ -131,18 +132,23 @@ public class Main{
     }
     public void processAdd(Scanner in) {
         String bikeId = in.next();
-        int battery = 100;
         String stationName = in.next();
         
-        if (findBike(bikeId) != null) {
+        Bike correspondingBike = findBike(bikeId);
+        Station correspondingStation = findStation(stationName);
+        
+        if (correspondingBike != null) {
             System.out.printf(BIKE_EXISTS, bikeId);
-        } else if (findStation(stationName) == null) {
+        } else if (correspondingStation == null) {
             System.out.printf(INEXISTENT_STATION, stationName);
-        } else if (findStation(stationName) != null && !(findStation(stationName).existsFreeDock())) {
-            System.out.printf(NO_FREE_DOCKS, stationName);    
         } else {
-            addBike();
-            System.out.printf(BIKE_SUCCESSFULLY_ADDED, stationName, bikeId);
+            if (!(correspondingStation.existsFreeDock())) {
+                System.out.printf(NO_FREE_DOCKS, stationName);
+            } else {
+                Bike newBike = new Bike(bikeId);
+                correspondingStation.addBike(newBike);
+                System.out.printf(BIKE_SUCCESSFULLY_ADDED, stationName, bikeId);
+            }
         }
     }
     public void processRegister(Scanner in){
