@@ -31,6 +31,7 @@ public class Main{
     
     public final String USER_ALREADY_REGISTERED = "User %s already registered.%n";
     public final String USER_SUCCESSFULLY_ADDED = "User %s successfully registered with balance %.2f euros.%n";
+    public final String INEXISTENT_USER = "User %s not registered.%n";
     
     public static final int INITIAL_STATIONS_CAPACITY = 10;
     public static final int INITIAL_BIKES_CAPACITY = 10;
@@ -177,7 +178,16 @@ public class Main{
         }
     }
     public void processPickUp(Scanner in){
-        //TODO
+        String userName = in.next();
+        String stationName = in.next();
+        int timestamp = in.nextInt();
+        
+        if (findClient(userName) == null) {
+            System.out.printf(INEXISTENT_USER, userName);
+        }
+        if (findStation(stationName) == null) {
+            System.out.printf(INEXISTENT_STATION, stationName);
+        }
     }
     public void processReturn(Scanner in){
         //TODO
