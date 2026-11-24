@@ -146,7 +146,16 @@ public class Main{
                 System.out.printf(NO_FREE_DOCKS, stationName);
             } else {
                 Bike newBike = new Bike(bikeId);
-                correspondingStation.addBike(newBike);
+                if (bikesCount < bikes.length) {
+                    correspondingStation.addBike(newBike);
+                    bikes[bikesCount] = newBike;
+                    bikesCount++;
+                } else {
+                    growBikes();
+                    correspondingStation.addBike(newBike);
+                    bikes[bikesCount] = newBike;
+                    bikesCount++;
+                }
                 System.out.printf(BIKE_SUCCESSFULLY_ADDED, stationName, bikeId);
             }
         }
