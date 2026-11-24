@@ -36,6 +36,9 @@ public class Main{
     public static final int INITIAL_BIKES_CAPACITY = 10;
     public static final int INITIAL_CLIENTS_CAPACITY = 10;
     
+    
+    public static final int CENTS_TO_EURO_COEFFICIENT = 100;
+    
     private Station[] stations = new Station[INITIAL_STATIONS_CAPACITY];
     private int stationsCount = 0;
     
@@ -107,7 +110,7 @@ public class Main{
         int capacity = in.nextInt();
         
         Station correspondingStation = findStation(stationName);
-        
+
         if (correspondingStation != null) {
             System.out.printf(STATION_EXISTS, stationName);
         } else if (capacity <= 0) {
@@ -115,14 +118,12 @@ public class Main{
         } else {
             Bike[] dockedBikes = new Bike[capacity];
             Station newStation = new Station(stationName, capacity, dockedBikes);
-            if (stationsCount < stations.length) {
-                stations[stationsCount] = newStation;
-                stationsCount++;
-            } else {
+            if (stationsCount == stations.length) {
                 growStations();
-                stations[stationsCount] = newStation;
-                stationsCount++;
             }
+            stations[stationsCount] = newStation;
+            stationsCount++;
+            
             System.out.printf(STATION_SUCCESSFULLY_CREATED, stationName, capacity);
         }
         
@@ -141,23 +142,18 @@ public class Main{
             System.out.printf(BIKE_EXISTS, bikeId);
         } else if (correspondingStation == null) {
             System.out.printf(INEXISTENT_STATION, stationName);
+        } else if (!correspondingStation.existsFreeDock()) {
+            System.out.printf(NO_FREE_DOCKS, stationName);
         } else {
-            if (!(correspondingStation.existsFreeDock())) {
-                System.out.printf(NO_FREE_DOCKS, stationName);
-            } else {
-                Bike newBike = new Bike(bikeId);
-                if (bikesCount < bikes.length) {
-                    correspondingStation.addBike(newBike);
-                    bikes[bikesCount] = newBike;
-                    bikesCount++;
-                } else {
-                    growBikes();
-                    correspondingStation.addBike(newBike);
-                    bikes[bikesCount] = newBike;
-                    bikesCount++;
-                }
-                System.out.printf(BIKE_SUCCESSFULLY_ADDED, stationName, bikeId);
+            Bike newBike = new Bike(bikeId);
+            if (bikesCount == bikes.length) {
+                growBikes();
             }
+            correspondingStation.addBike(newBike);
+            bikes[bikesCount] = newBike;
+            bikesCount++;
+            
+            System.out.printf(BIKE_SUCCESSFULLY_ADDED, stationName, bikeId);
         }
     }
     public void processRegister(Scanner in){
@@ -166,14 +162,18 @@ public class Main{
         
         if (findClient(userName) != null) {
             System.out.printf(USER_ALREADY_REGISTERED, userName);
-        } else if (findClient(userName) == null) {
+        } else {
             if (balance < 0) {
-                Client newClient = new Client(userName, balance = 0);
-                System.out.printf(USER_SUCCESSFULLY_ADDED, userName, balance = 0);
-            } else {
-                Client newClient = new Client(userName, balance);
-                System.out.printf(USER_SUCCESSFULLY_ADDED, userName, balance);
+                balance = 0;
             }
+            Client newClient = new Client(userName, balance);
+            if (clientsCount == clients.length) {
+                growClients();
+            }
+            clients[clientsCount] = newClient;
+            clientsCount++;
+            
+            System.out.printf(USER_SUCCESSFULLY_ADDED, userName, (double) balance/CENTS_TO_EURO_COEFFICIENT);   
         }
     }
     public void processPickUp(Scanner in){
