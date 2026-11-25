@@ -23,6 +23,7 @@ public class Main{
     public final String STATION_EXISTS = "Station %s already exists.%n";
     public final String INVALID_CAPACITY = "Station %s cannot be created with %d docking stations.%n";
     public final String STATION_SUCCESSFULLY_CREATED = "Station %s is available with %d docking stations.%n";
+    public final String EMPTY_STATION = "No bike available.%n";
     
     public final String BIKE_EXISTS = "Bike %s already exists.%n";
     public final String INEXISTENT_STATION = "Station %s not found.%n";
@@ -32,6 +33,7 @@ public class Main{
     public final String USER_ALREADY_REGISTERED = "User %s already registered.%n";
     public final String USER_SUCCESSFULLY_ADDED = "User %s successfully registered with balance %.2f euros.%n";
     public final String INEXISTENT_USER = "User %s not registered.%n";
+    public final String INSUFFICIENT_BALANCE = "Insufficient balance.%n";
     
     public static final int INITIAL_STATIONS_CAPACITY = 10;
     public static final int INITIAL_BIKES_CAPACITY = 10;
@@ -129,7 +131,7 @@ public class Main{
         }
         
     }
-    public void processExit(Scanner in){
+    public void processExit(Scanner in) {
         //TODO
     }
     public void processAdd(Scanner in) {
@@ -184,9 +186,17 @@ public class Main{
         
         if (findClient(userName) == null) {
             System.out.printf(INEXISTENT_USER, userName);
+        } else {
+            if (!(findClient(userName).canPickBike())) {
+                System.out.printf(INSUFFICIENT_BALANCE);
+            }
         }
         if (findStation(stationName) == null) {
             System.out.printf(INEXISTENT_STATION, stationName);
+        } else {
+            if (findStation(stationName).isEmpty()) {
+                System.out.printf(EMPTY_STATION);
+            }
         }
     }
     public void processReturn(Scanner in){
@@ -199,7 +209,7 @@ public class Main{
         //TODO
     }
     public void processTop(){
-        //TODO mm
+        //TODO
     }
     public void processUnknownCommand(){System.out.println(INVALID_COMAND_MSG);}
     
