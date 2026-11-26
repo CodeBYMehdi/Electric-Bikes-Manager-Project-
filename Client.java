@@ -6,10 +6,13 @@
  * @version 0.0.1
  */
 public class Client {
-    
+    private Bike currentBike;
+    private int pickupTime;
+    private int complTrips; // completed trips
+    private int totalMinutes;
     private String userName;
     private int balance;
-    
+
     public Client(String userName, int balance) {
         this.userName = userName;
         this.balance = balance;
