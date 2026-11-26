@@ -8,7 +8,7 @@
  * @version 0.0.1
  */
 public class Bike {
-    private String bikeId;
+    private final String bikeId;
     private int battery;
     
     public Bike(String bikeId) {
@@ -21,7 +21,7 @@ public class Bike {
     
     public boolean existsBike(String otherBike) {return bikeId.equals(otherBike);}
     
-    public boolean canBePicked() {return battery > 20;}
+    public boolean canBePicked() {return battery >= 20;}
     
     public boolean isFullyCharged() {return battery == 100;}
     
