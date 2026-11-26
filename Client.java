@@ -17,9 +17,13 @@ public class Client {
         this.userName = userName;
         this.balance = balance;
     }
-    
+    public boolean isRiding(){return currentBike != null;}
+
     public String getUserName() {return userName;}
-    public int getBalance() {return balance;}
+    public int getBalance() {
+        if(balance < 0){return 0;}
+        return balance;
+    }
     
     public boolean canPickBike() {return balance >= 100;}
     
