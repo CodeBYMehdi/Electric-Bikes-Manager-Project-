@@ -11,7 +11,7 @@ public class Bike {
     private String bikeId;
     private int battery;
     
-    public Bike(String bikeId, int battery) {
+    public Bike(String bikeId) {
         this.bikeId = bikeId;
         battery = 100;
     }

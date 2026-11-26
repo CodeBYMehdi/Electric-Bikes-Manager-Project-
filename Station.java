@@ -24,9 +24,14 @@ public class Station {
     
     public int getCapacity() {return capacity;}
     
+    public BikeIterator getBikeIterator() {return new BikeIterator(dockedBikes,
+        dockedBikesCount);}
+    
     public boolean existsStation(String otherStation) {return stationName.equals(otherStation);}
     
     public boolean existsFreeDock() {return dockedBikesCount < capacity;}
+
+    public boolean isEmpty() {return !getBikeIterator().hasNext();}
     
     public void addBike(Bike newBike) {
         dockedBikes[dockedBikesCount] = newBike;
