@@ -57,8 +57,8 @@ public class Station {
         int bestIndex = -1;
         for  (int i = 0; i < dockedBikesCount; i++) {
             Bike candidate = dockedBikes[i];
-            if (candidate.canBePicked()&&
-                    priority(candidate, dockedBikes[bestIndex])) {
+            if (candidate.canBePicked()&&(bestIndex == -1 ||
+                    priority(candidate, dockedBikes[bestIndex]))) {
                 bestIndex = i;
             }
         }
@@ -74,6 +74,16 @@ public class Station {
         dockedBikesCount--;
         dockedBikes[dockedBikesCount] = null;
         return chosen;
+    }
+
+    public Bike[] getSortedBikes(){
+        Bike[] sortedBikes = new Bike[dockedBikesCount];
+
+        for(int i = 0; i < dockedBikesCount; i++){
+            sortedBikes[i] = dockedBikes[i];
+        }
+        return sortedBikes;
+        //TODO Acabar a seleçãp !!!
     }
 
 }
